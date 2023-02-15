@@ -11,7 +11,6 @@ import {
 
 import {
   Button,
-  IconButton,
   MD2Theme,
   overlay,
   useTheme,
@@ -20,11 +19,9 @@ import {
 import TimePicker from './TimePicker'
 import {
   clockTypes,
-  getTimeInputTypeIcon,
   inputTypes,
   PossibleClockTypes,
   PossibleInputTypes,
-  reverseInputTypes,
 } from './timeUtils'
 
 const supportedOrientations: (
@@ -53,8 +50,6 @@ export function TimePickerModal({
   confirmLabel = 'Ok',
   animationType = 'none',
   locale,
-  keyboardIcon = 'keyboard-outline',
-  clockIcon = 'clock-outline',
   use24HourClock,
   inputFontSize,
 }: {
@@ -85,8 +80,8 @@ export function TimePickerModal({
     textFont = (theme as any as MD2Theme)?.fonts.medium
   }
 
-  const [inputType, setInputType] = React.useState<PossibleInputTypes>(
-    inputTypes.picker
+  const [inputType] = React.useState<PossibleInputTypes>(
+    inputTypes.keyboard
   )
   const [focused, setFocused] = React.useState<PossibleClockTypes>(
     clockTypes.hours
@@ -202,16 +197,6 @@ export function TimePickerModal({
                 />
               </View>
               <View style={styles.bottom}>
-                <IconButton
-                  icon={getTimeInputTypeIcon(inputType, {
-                    keyboard: keyboardIcon,
-                    picker: clockIcon,
-                  })}
-                  onPress={() => setInputType(reverseInputTypes[inputType])}
-                  size={24}
-                  style={styles.inputTypeToggle}
-                  accessibilityLabel="toggle keyboard"
-                />
                 <View style={styles.fill} />
                 <Button onPress={onDismiss} uppercase={uppercase}>
                   {cancelLabel}
